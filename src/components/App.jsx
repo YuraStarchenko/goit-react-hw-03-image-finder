@@ -6,7 +6,7 @@ import {} from './ImageGallery/ImageGallery';
 import {} from './ImageGalleryItem/ImageGalleryItem';
 import {} from './Loader/Loader';
 import {} from './Modal/Modal';
-import {} from './Searchbar/Searchbar';
+import { Searchbar } from './Searchbar/Searchbar';
 
 export class App extends Component {
   state = {
@@ -15,6 +15,7 @@ export class App extends Component {
   render() {
     return (
       <Container>
+        <Searchbar />
         <GlobalStyle />
       </Container>
     );
