@@ -8,7 +8,7 @@ export const Searchbar = ({ onSubmit }) => {
       <Form>
         <Button type="submit">
           <BsSearch />
-          <Text>Search</Text>
+          <Text onClick={onSubmit}>Search</Text>
         </Button>
 
         <Input
