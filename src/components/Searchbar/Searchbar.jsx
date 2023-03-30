@@ -3,7 +3,7 @@ import { Header, Form, Button, Input, } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
-	
+
   render() {
     return (
       <Header>
@@ -17,7 +17,8 @@ export class Searchbar extends Component {
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
-          />
+					/>
+					
         </Form>
       </Header>
     );
