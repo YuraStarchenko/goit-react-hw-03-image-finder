@@ -1,12 +1,15 @@
 import { Component } from 'react';
-import { Header, Form, Button, Input, } from './Searchbar.styled.js';
+import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
+  state = {};
 
-	state = {
-	
-	}
+  componentDidUpdate() {}
+
+  componentDidMount(prevProps, prevState) {
+    fetch();
+  }
 
   render() {
     return (
@@ -21,8 +24,7 @@ export class Searchbar extends Component {
             autocomplete="off"
             autofocus
             placeholder="Search images and photos"
-					/>
-					
+          />
         </Form>
       </Header>
     );
