@@ -4,6 +4,10 @@ import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
 
+	state = {
+	
+	}
+
   render() {
     return (
       <Header>
