@@ -3,18 +3,23 @@ import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
-  state = {};
+  state = {
+    value: '',
+  };
 
-  componentDidUpdate() {}
+  handleChange = ({ target: { value } }) => {
+    this.setState({ value });
+  };
 
-  componentDidMount(prevProps, prevState) {
-    fetch();
-  }
+  handleSubmit = e => {
+    e.preventDefault();
+    this.props.createSearchImage(this.state.value);
+  };
 
   render() {
     return (
       <Header>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Button type="submit">
             <BsSearch />
           </Button>
@@ -22,8 +27,10 @@ export class Searchbar extends Component {
           <Input
             type="text"
             autocomplete="off"
-            autofocus
+            autoFocus
+            value={this.state.value}
             placeholder="Search images and photos"
+            onChange={this.handleChange}
           />
         </Form>
       </Header>

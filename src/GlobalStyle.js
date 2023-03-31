@@ -15,6 +15,10 @@ html {
   box-sizing: inherit;
 }
 
+ul,ol,li{
+	list-style: none;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
