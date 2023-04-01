@@ -21,8 +21,8 @@ export class App extends Component {
     return (
       <Container>
         <Searchbar createSearchImage={this.createSearchImage} />
-        <ImageGalleryItem />
-        <GlobalStyle searchImage={this.state.searchImage} />
+        <ImageGalleryItem searchImage={this.state.searchImage} />
+        <GlobalStyle />
       </Container>
     );
   }
