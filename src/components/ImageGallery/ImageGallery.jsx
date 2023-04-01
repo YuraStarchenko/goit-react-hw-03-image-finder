@@ -1,7 +1,7 @@
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
 
-export const ImageGallery = () => {
+export const ImageGallery = ({}) => {
   return (
     <List>
       <ImageGalleryItem />

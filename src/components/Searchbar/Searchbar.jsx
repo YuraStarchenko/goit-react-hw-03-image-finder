@@ -16,6 +16,14 @@ export class Searchbar extends Component {
     this.props.createSearchImage(this.state.value);
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    const searchImage = this.props.searchImage.trim();
+    if (prevProps.searchImage !== searchImage && searchImage) {
+      // fetch();
+      console.log(searchImage);
+    }
+  }
+
   render() {
     return (
       <Header>
