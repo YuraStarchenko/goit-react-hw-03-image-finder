@@ -1,5 +1,5 @@
 import { Component } from 'react';
-
+import { Item } from './ImageGalleryItem.styled.js';
 export class ImageGalleryItem extends Component {
   state = {};
   componentDidUpdate(prevProps, prevState) {
@@ -11,9 +11,9 @@ export class ImageGalleryItem extends Component {
   }
   render() {
     return (
-      <li className="gallery-item">
+      <Item>
         <img src="" alt="" />
-      </li>
+      </Item>
     );
   }
 }
