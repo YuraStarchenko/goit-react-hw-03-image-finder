@@ -4,25 +4,24 @@ import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
   state = {
-    value: '',
+    searchQuery: '',
   };
 
-  handleChange = ({ target: { value } }) => {
-    this.setState({ value });
+  handleChange = ({ target: { searchQuery } }) => {
+    this.setState({ searchQuery });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.createSearchImage(this.state.value);
+    this.props.createSearchImage(this.state.searchQuery);
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const searchImage = this.props.searchImage.trim();
-    if (prevProps.searchImage !== searchImage && searchImage) {
-      // fetch();
-      console.log(searchImage);
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const searchImage = this.props.searchImage.trim();
+  //   if (prevProps.searchImage !== searchImage && searchImage) { 
+  //     console.log(searchImage);
+  //   }
+  // }
 
   render() {
     return (
@@ -36,7 +35,7 @@ export class Searchbar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            value={this.state.value}
+            searchQuery={this.state.searchQuery}
             placeholder="Search images and photos"
             onChange={this.handleChange}
           />
