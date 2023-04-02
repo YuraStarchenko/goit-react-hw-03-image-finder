@@ -9,7 +9,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 
 export class App extends Component {
   state = {
-    articles: [],
+    image: [],
     isLoading: false,
     error: null,
   };
