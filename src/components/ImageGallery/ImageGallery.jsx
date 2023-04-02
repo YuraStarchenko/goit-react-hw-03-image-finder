@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
 import { List } from './ImageGallery.styled';
 
-export const ImageGallery = ({ items }) => {
+export const ImageGallery = ({ images }) => {
   return (
     <List>
-      {items.map(item => (
+      {images.map(image => (
         <ImageGalleryItem
-          key={item.id}
-          tags={item.tags}
-          webformatURL={item.webformatURL}
-          largeImageURL={item.largeImageURL}
+          key={image.id}
+          tags={image.tags}
+          webformatURL={image.webformatURL}
+          largeImageURL={image.largeImageURL}
         />
       ))}
     </List>
@@ -18,5 +18,5 @@ export const ImageGallery = ({ items }) => {
 };
 
 ImageGallery.propTypes = {
-  items: PropTypes.array.isRequired,
+  images: PropTypes.array.isRequired,
 };
