@@ -1,28 +1,34 @@
 import { Component } from 'react';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
   state = {
-    inputValue: '',
+    searchQuery: '',
   };
 
   inputHandleChange = e => {
-    this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
+    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = e => {
 		e.preventDefault();
 		
-		if (this.state.inputValue.trim() === '') {
-			alert('wcwec')
-			return;
-		}
-      this.props.onSubmit(this.state.inputValue);
-    this.setState({ inputValue: '' });
+		const { searchQuery } = this.state;
+    const { onSubmit } = this.props;
+
+    if (this.state.searchQuery.trim() === '') {
+      Notify.info('Enter the name of the picture 🌅');
+      return;
+    }
+  	onSubmit(searchQuery);
+    this.setState({ searchQuery: '' });
   };
 
-  render() {
+	render() {
+		const { searchQuery } = this.state;
+
     return (
       <Header>
         <Form onSubmit={this.handleSubmit}>
@@ -34,7 +40,7 @@ export class Searchbar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            inputValue={this.state.inputValue}
+            value={searchQuery}
             placeholder="Search images and photos"
             onChange={this.inputHandleChange}
           />
