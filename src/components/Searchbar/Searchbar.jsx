@@ -14,15 +14,14 @@ export class SearchBar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    const { inputValue } = this.state;
     const { onSubmit } = this.props;
 
     if (this.state.inputValue.trim() === '') {
       Notify.info('Enter the name of the picture 🌅');
       return;
-    }
-    onSubmit(inputValue);
+		}
+		
+    onSubmit(this.state.inputValue);
     this.setState({ inputValue: '' });
   };
 
