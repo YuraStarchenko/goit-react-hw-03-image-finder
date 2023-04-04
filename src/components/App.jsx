@@ -41,7 +41,7 @@ export class App extends Component {
         page: page + 1,
       }));
     } catch (error) {
-      this.setState({ error: 'Oops' });
+      this.setState({ error: 'Что-то пошло боком' });
     } finally {
       this.setState({ isLoading: false });
     }
