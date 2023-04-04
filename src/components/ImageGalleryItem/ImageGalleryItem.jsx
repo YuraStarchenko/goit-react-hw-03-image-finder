@@ -5,9 +5,11 @@ export const ImageGalleryItem = ({
   item: { tags, webformatURL, largeImageURL },
   imageClick,
 }) => {
+	
   const onClickImg = () => {
     imageClick(largeImageURL);
-  };
+	};
+	
   return (
     <Item>
       <Image src={webformatURL} alt={tags} onClick={onClickImg} />

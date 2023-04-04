@@ -21,8 +21,7 @@ export class SearchBar extends Component {
     if (this.state.searchQuery.trim() === '') {
       Notify.info('Enter the name of the picture 🌅');
       return;
-		}
-		
+    }
     onSubmit(searchQuery);
     this.setState({ searchQuery: '' });
   };

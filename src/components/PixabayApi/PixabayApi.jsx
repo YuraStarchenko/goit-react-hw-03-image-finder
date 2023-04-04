@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-axios.defaults.ENDPOINT = 'https://pixabay.com/api';
+axios.defaults.baseURL = 'https://pixabay.com/api';
 
-const KEY = '33854415-dab75466e51d96ca7439b60b4';
+const KEY = '33634172-69812b587cbe0ba586ff0443e';
 
-export const fetchImage = async (page, query) => {
+export const fetchImages = async (query, page) => {
   const { data } = await axios.get(
     `/?q=${query}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12`
   );

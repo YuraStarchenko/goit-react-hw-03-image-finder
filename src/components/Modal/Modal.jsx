@@ -3,14 +3,14 @@ import { Div, ModalImg } from './Modal.styled.js';
 
 export class ModalImage extends Component {
   componentDidMount() {
-    window.addEventListener('keydown', this.clickKeyDown);
+    window.addEventListener('keydown', this.KeyDown);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.clickKeyDown);
+    window.removeEventListener('keydown', this.KeyDown);
   }
 
-  clickKeyDown = e => {
+  KeyDown = e => {
     if (e.code === 'Escape') {
       this.props.onClick();
     }
