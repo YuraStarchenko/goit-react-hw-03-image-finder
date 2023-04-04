@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Item, Image } from './ImageGalleryItem.styled.js';
 
 export const ImageGalleryItem = ({
-  image: { tags, webformatURL, largeImageURL },
+  item: { tags, webformatURL, largeImageURL },
   imageClick,
 }) => {
   const onClickImg = () => {
@@ -16,7 +16,7 @@ export const ImageGalleryItem = ({
 };
 
 ImageGalleryItem.propTypes = {
-  image: PropTypes.shape({
+  item: PropTypes.shape({
     tags: PropTypes.string.isRequired,
     webformatURL: PropTypes.string.isRequired,
     largeImageURL: PropTypes.string.isRequired,

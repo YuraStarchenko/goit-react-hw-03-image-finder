@@ -3,7 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
 
-export class Searchbar extends Component {
+export class SearchBar extends Component {
   state = {
     searchQuery: '',
   };
@@ -13,21 +13,22 @@ export class Searchbar extends Component {
   };
 
   handleSubmit = e => {
-		e.preventDefault();
-		
-		const { searchQuery } = this.state;
+    e.preventDefault();
+
+    const { searchQuery } = this.state;
     const { onSubmit } = this.props;
 
     if (this.state.searchQuery.trim() === '') {
       Notify.info('Enter the name of the picture 🌅');
       return;
-    }
-  	onSubmit(searchQuery);
+		}
+		
+    onSubmit(searchQuery);
     this.setState({ searchQuery: '' });
   };
 
-	render() {
-		const { searchQuery } = this.state;
+  render() {
+    const { searchQuery } = this.state;
 
     return (
       <Header>
