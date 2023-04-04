@@ -5,30 +5,28 @@ import { BsSearch } from 'react-icons/bs';
 
 export class SearchBar extends Component {
   state = {
-    searchQuery: '',
+    inputValue: '',
   };
 
   inputHandleChange = e => {
-    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
+    this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
-    const { searchQuery } = this.state;
+    const { inputValue } = this.state;
     const { onSubmit } = this.props;
 
-    if (this.state.searchQuery.trim() === '') {
+    if (this.state.inputValue.trim() === '') {
       Notify.info('Enter the name of the picture 🌅');
       return;
     }
-    onSubmit(searchQuery);
-    this.setState({ searchQuery: '' });
+    onSubmit(inputValue);
+    this.setState({ inputValue: '' });
   };
 
   render() {
-    const { searchQuery } = this.state;
-
     return (
       <Header>
         <Form onSubmit={this.handleSubmit}>
@@ -40,7 +38,7 @@ export class SearchBar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            value={searchQuery}
+            value={this.state.inputValue}
             placeholder="Search images and photos"
             onChange={this.inputHandleChange}
           />

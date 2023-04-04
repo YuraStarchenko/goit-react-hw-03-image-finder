@@ -15,10 +15,10 @@ export class App extends Component {
     largeImage: '',
     error: null,
     isModalOpen: false,
-    isLoading: false,
+    loading: false,
   };
 
-	componentDidUpdate(perevProps,prevState) {
+	componentDidUpdate(perevProps ,prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.getImages();
     }
@@ -31,7 +31,7 @@ export class App extends Component {
   getImages = async () => {
     const { searchQuery, page } = this.state;
 
-    this.setState({ isLoading: true });
+    this.setState({ loading: true });
 
     try {
       const { hits } = await fetchImages(searchQuery, page);
@@ -41,9 +41,9 @@ export class App extends Component {
         page: page + 1,
       }));
     } catch (error) {
-      this.setState({ error: 'Что-то пошло боком' });
+      this.setState({ error: 'Что-то пошло бокомy' });
     } finally {
-      this.setState({ isLoading: false });
+      this.setState({ loading: false });
     }
   };
 
@@ -56,7 +56,7 @@ export class App extends Component {
   };
 
   render() {
-    const { images, largeImage, isModalOpen, isLoading, error } = this.state;
+    const { images, largeImage, isModalOpen, loading, error } = this.state;
     const lengthImages = images.length >= 12;
 
     return (
@@ -66,7 +66,7 @@ export class App extends Component {
 
         <ImageGallery items={images} imageClick={this.getLargeImage} />
 
-        {isLoading && <Loader />}
+        {loading && <Loader />}
 
         {lengthImages && <LoadMore onLoadMore={() => this.getImages} />}
 
