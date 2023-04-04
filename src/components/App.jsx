@@ -18,7 +18,7 @@ export class App extends Component {
     isLoading: false,
   };
 
-  componentDidUpdate(_, prevState) {
+	componentDidUpdate(perevProps,prevState) {
     if (prevState.searchQuery !== this.state.searchQuery) {
       this.getImages();
     }
