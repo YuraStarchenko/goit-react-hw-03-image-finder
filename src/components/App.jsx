@@ -1,96 +1,78 @@
 import { Component } from 'react';
-import axios from 'axios';
 import { SearchBar } from './Searchbar/Searchbar';
 import { GlobalStyle } from '../GlobalStyle';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Container } from './Container.styled';
 import { LoadMore } from './Button/Button';
-import { Loader } from './Loader/Loader';
 import { ModalImage } from './Modal/Modal';
+import { Loader } from './Loader/Loader';
+import { fetchPictures } from './Api';
 export class App extends Component {
   state = {
     images: [],
-    searchQuery: '',
-    page: 1,
-    largeImage: '',
+    status: '',
+    numberPage: 1,
     loading: false,
     error: null,
-    isModalOpen: false,
-    totalHits: 0,
+    showModal: false,
+    loadMore: null,
+    largeImageUrl: '',
   };
 
-  componentDidUpdate(perevProps, prevState) {
-    const prevSearch = prevState.searchQuery;
-    const nextSearch = this.state.searchQuery;
-
-    if (prevSearch !== nextSearch) {
-      this.setState({ loading: true, page: 1 });
-      return axios
-        .get(
-          `https://pixabay.com/api/?q=${nextSearch}&page=1&key=33577731-7b9b7bf07a9d841c486c320f5&image_type=photo&orientation=horizontal&per_page=12`
-        )
-        .then(data =>
-          this.setState(prev => ({
-            ...prev,
-            images: data.data.hits,
-            isLoading: false,
-            totalHits: data.data.totalHits,
-          }))
-        )
-        .catch(error => this.setState({ error: true }));
-    }
-
-    if (prevState.page < this.state.page) {
-      this.setState({ isLoading: true });
-      return axios
-        .get(
-          `https://pixabay.com/api/?q=${nextSearch}&page=${this.state.page}&key=33577731-7b9b7bf07a9d841c486c320f5&image_type=photo&orientation=horizontal&per_page=12`
-        )
-        .then(data =>
-          this.setState(prevState => {
-            return {
-              images: [...prevState.images, ...data.data.hits],
-            };
-          })
-        )
-        .catch(error => this.setState({ error: true }))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
-    }
-  }
-
-  onSubmitSearchQuery = searchQuery => {
-    this.setState({ images: [], searchQuery, page: 1 });
-  };
-
-
-  getLargeImage = largeImage => {
-    this.setState({ largeImage, isModalOpen: true });
+  getLargeImgUrl = imgUrl => {
+    this.setState({ largeImageUrl: imgUrl });
+    this.toggleModal();
   };
 
   toggleModal = () => {
-    this.setState(({ isModalOpen }) => ({ isModalOpen: !isModalOpen }));
+    this.setState(state => ({
+      showModal: !state.showModal,
+    }));
   };
 
+  searchResult = value => {
+    this.setState({ query: value, numberPage: 1, images: [], loadMore: null });
+  };
+
+  handleLoadMore = () => {
+    this.setState(prevState => ({
+      numberPage: prevState.numberPage + 1,
+    }));
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    const { numberPage, query } = this.state;
+
+    if (
+      prevState.numberPage !== this.state.numberPage ||
+      prevState.query !== this.state.query
+    ) {
+      this.setState({ status: 'loading' });
+
+      fetchPictures(query, numberPage)
+        .then(e =>
+          this.setState(prevState => ({
+            images: [...prevState.images, ...e.hits],
+            status: '',
+            loadMore: 12 - e.hits.length,
+          }))
+        )
+        .catch(error => console.log(error));
+    }
+  }
+
   render() {
-    const { images, largeImage, isModalOpen, loading, error } = this.state;
-    const lengthImages = images.length >= 12;
+    const { images, status, showModal, largeImageUrl, loadMore } = this.state;
 
     return (
       <Container>
-        <SearchBar onSubmit={this.onSubmitSearchQuery} />
-        {error}
-
-        <ImageGallery items={images} imageClick={this.getLargeImage} />
-
-        {loading && <Loader />}
-
-        {lengthImages && <LoadMore onLoadMore={() => this.getImages} />}
-
-        {isModalOpen && (
-          <ModalImage largeImageURL={largeImage} onClick={this.toggleModal} />
+        <SearchBar onSubmit={this.searchResult} />
+        {showModal && (
+          <ModalImage imgUrl={largeImageUrl} onClose={this.toggleModal} />
         )}
+        <ImageGallery images={images} onClick={this.getLargeImgUrl} />
+        {status === 'loading' && <Loader />}
+        {loadMore === 0 && <LoadMore onClick={this.handleLoadMore} />}
         <GlobalStyle />
       </Container>
     );

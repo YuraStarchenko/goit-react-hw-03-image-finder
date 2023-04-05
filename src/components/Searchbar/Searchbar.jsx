@@ -1,7 +1,9 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
+
 export class SearchBar extends Component {
   state = {
     inputValue: '',
@@ -13,16 +15,25 @@ export class SearchBar extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.inputValue.trim() === '') {
-      Notify.info('Enter the name of the picture 🌅');
-      return;
-    }
+    const { inputValue } = this.state;
 
-    this.props.onSubmit(this.state.inputValue);
+    this.props.onSubmit(inputValue);
     this.setState({ inputValue: '' });
   };
 
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   if (this.state.inputValue.trim() === '') {
+  //     Notify.info('Enter the name of the picture 🌅');
+  //     return;
+  //   }
+  //   this.props.onSubmit(this.state.inputValue);
+  //   this.setState({ inputValue: '' });
+  // };
+
   render() {
+    const { inputValue } = this.state;
+
     return (
       <Header>
         <Form onSubmit={this.handleSubmit}>
@@ -34,7 +45,7 @@ export class SearchBar extends Component {
             type="text"
             autocomplete="off"
             autoFocus
-            value={this.state.inputValue}
+            value={inputValue}
             placeholder="Search images and photos"
             onChange={this.inputHandleChange}
           />
@@ -43,3 +54,6 @@ export class SearchBar extends Component {
     );
   }
 }
+SearchBar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
