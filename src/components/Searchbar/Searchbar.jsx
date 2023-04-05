@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Header, Form, Button, Input } from './Searchbar.styled.js';
 import { BsSearch } from 'react-icons/bs';
-
 export class SearchBar extends Component {
   state = {
     inputValue: '',
@@ -17,8 +16,8 @@ export class SearchBar extends Component {
     if (this.state.inputValue.trim() === '') {
       Notify.info('Enter the name of the picture 🌅');
       return;
-		}
-		
+    }
+
     this.props.onSubmit(this.state.inputValue);
     this.setState({ inputValue: '' });
   };
