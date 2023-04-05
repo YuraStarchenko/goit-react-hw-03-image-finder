@@ -18,9 +18,9 @@ export class App extends Component {
     loadMore: null,
     query: '',
     largeImageUrl: '',
-	};
-	
-// для открытия большой картинки 
+  };
+
+  // для открытия большой картинки
   getLargeImgUrl = imgUrl => {
     this.setState({ largeImageUrl: imgUrl });
     this.toggleModalImg();
@@ -32,27 +32,25 @@ export class App extends Component {
       showModal: !state.showModal,
     }));
   };
-// сабмит инпута 
+  // сабмит инпута
   searchSubmit = value => {
     this.setState({ query: value, numberPage: 1, images: [], loadMore: null });
   };
 
-// для кнопки загрузить еще 
+  // для кнопки загрузить еще
   handleLoadMore = () => {
     this.setState(prevState => ({
       numberPage: prevState.numberPage + 1,
     }));
   };
-// обновление данных 
+  // обновление данных
   componentDidUpdate(prevProps, prevState) {
     const { numberPage, query } = this.state;
-
     if (
       prevState.numberPage !== this.state.numberPage ||
       prevState.query !== this.state.query
     ) {
       this.setState({ status: 'loading' });
-
       fetchImage(query, numberPage)
         .then(e =>
           this.setState(prevState => ({
@@ -67,7 +65,6 @@ export class App extends Component {
 
   render() {
     const { images, status, showModal, largeImageUrl, loadMore } = this.state;
-
     return (
       <Container>
         <SearchBar onSubmit={this.searchSubmit} />
