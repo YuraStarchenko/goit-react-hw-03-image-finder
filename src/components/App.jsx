@@ -13,13 +13,16 @@ export class App extends Component {
     searchQuery: '',
     page: 1,
     largeImage: '',
+    loading: false,
     error: null,
     isModalOpen: false,
-    loading: false,
   };
 
-	componentDidUpdate(perevProps ,prevState) {
-    if (prevState.searchQuery !== this.state.searchQuery) {
+	componentDidUpdate(perevProps, prevState) {
+		const prevSearch = prevState.searchQuery;
+		const nextSearch = this.state.searchQuery;
+		
+    if (prevSearch !== nextSearch) {
       this.getImages();
     }
   }
