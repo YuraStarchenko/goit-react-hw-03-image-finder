@@ -6,7 +6,7 @@ import { Container } from './Container.styled';
 import { LoadMore } from './Button/Button';
 import { ModalImage } from './Modal/Modal';
 import { Loader } from './Loader/Loader';
-import { fetchPictures } from './Api';
+import { fetchImage } from './Api';
 export class App extends Component {
   state = {
     images: [],
@@ -16,30 +16,34 @@ export class App extends Component {
     error: null,
     showModal: false,
     loadMore: null,
+    query: '',
     largeImageUrl: '',
-  };
-
+	};
+	
+// для открытия большой картинки 
   getLargeImgUrl = imgUrl => {
     this.setState({ largeImageUrl: imgUrl });
-    this.toggleModal();
+    this.toggleModalImg();
   };
 
-  toggleModal = () => {
+  // для открытия модалки с картинкой
+  toggleModalImg = () => {
     this.setState(state => ({
       showModal: !state.showModal,
     }));
   };
-
-  searchResult = value => {
+// сабмит инпута 
+  searchSubmit = value => {
     this.setState({ query: value, numberPage: 1, images: [], loadMore: null });
   };
 
+// для кнопки загрузить еще 
   handleLoadMore = () => {
     this.setState(prevState => ({
       numberPage: prevState.numberPage + 1,
     }));
   };
-
+// обновление данных 
   componentDidUpdate(prevProps, prevState) {
     const { numberPage, query } = this.state;
 
@@ -49,7 +53,7 @@ export class App extends Component {
     ) {
       this.setState({ status: 'loading' });
 
-      fetchPictures(query, numberPage)
+      fetchImage(query, numberPage)
         .then(e =>
           this.setState(prevState => ({
             images: [...prevState.images, ...e.hits],
@@ -66,9 +70,9 @@ export class App extends Component {
 
     return (
       <Container>
-        <SearchBar onSubmit={this.searchResult} />
+        <SearchBar onSubmit={this.searchSubmit} />
         {showModal && (
-          <ModalImage imgUrl={largeImageUrl} onClose={this.toggleModal} />
+          <ModalImage imgUrl={largeImageUrl} onClose={this.toggleModalImg} />
         )}
         <ImageGallery images={images} onClick={this.getLargeImgUrl} />
         {status === 'loading' && <Loader />}

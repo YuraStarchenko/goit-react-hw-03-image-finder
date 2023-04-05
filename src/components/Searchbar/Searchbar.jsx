@@ -11,25 +11,17 @@ export class SearchBar extends Component {
 
   inputHandleChange = e => {
     this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
-  };
-
+	};
+	
+// Не дает засобмитить пустой инпут и пробелы
   handleSubmit = e => {
     e.preventDefault();
-    const { inputValue } = this.state;
-
-    this.props.onSubmit(inputValue);
-    this.setState({ inputValue: '' });
+    if (this.state.inputValue.trim() === '') {
+      Notify.info('Enter the name of the picture 🌅');
+      return;
+    }
+    this.props.onSubmit(this.state.inputValue);
   };
-
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   if (this.state.inputValue.trim() === '') {
-  //     Notify.info('Enter the name of the picture 🌅');
-  //     return;
-  //   }
-  //   this.props.onSubmit(this.state.inputValue);
-  //   this.setState({ inputValue: '' });
-  // };
 
   render() {
     const { inputValue } = this.state;
